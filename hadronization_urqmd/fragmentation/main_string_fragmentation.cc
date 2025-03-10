@@ -595,7 +595,7 @@ int main(int argv, char* argc[])
                         cbar_meson_energy = pythia.event[i].e();
                         double hmass = pythia.event[i].m();
                         
-                        int m1index, m2index, m1col, m1acol, m2col, m2acol;
+                        int m1index, m2index = 0, m1col, m1acol, m2col, m2acol;
                         m1col = pythia.event[pythia.event[i].mother1()].col();
                         m1acol = pythia.event[pythia.event[i].mother1()].acol();
                         m2col = pythia.event[pythia.event[i].mother2()].col();

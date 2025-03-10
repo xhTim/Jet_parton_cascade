@@ -22,7 +22,7 @@ cd ../
 
 # Generate the pythia parton
 cd pythia_parton
-./mymain06 100
+./mymain06 10 0
 cd ../
 
 # ZPC for parton cascade
