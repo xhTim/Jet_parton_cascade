@@ -1,11 +1,11 @@
 #!/bin/bash
 
 #sleep 0.1h
-rm -rf /pscratch/sd/w/wenbinz/V2inJet/event0
-rm -rf /pscratch/sd/w/wenbinz/V2inJet/grid_Submit.py
-cp -r event0 /pscratch/sd/w/wenbinz/V2inJet
-cp -r grid_Submit.py /pscratch/sd/w/wenbinz/V2inJet
-cd /pscratch/sd/w/wenbinz/V2inJet
+#rm -rf /pscratch/sd/w/wenbinz/V2inJet/event0
+#rm -rf /pscratch/sd/w/wenbinz/V2inJet/grid_Submit.py
+#cp -r event0 /pscratch/sd/w/wenbinz/V2inJet
+#cp -r grid_Submit.py /pscratch/sd/w/wenbinz/V2inJet
+#cd /pscratch/sd/w/wenbinz/V2inJet
 mkdir log
 mkdir jobs
 mkdir Playground

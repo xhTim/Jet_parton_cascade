@@ -64,13 +64,13 @@ cd ../
 # jet finding of final hadrons
 cd fastjet_hadron
 ln -s ../hadronization_urqmd/urqmd_code/urqmd/particle_list.dat ./
-./fastjet_hadron {nevent}
+./fastjet_hadron_trackTree {nevent} $ii
 rm -r ../hadronization_urqmd/urqmd_code/urqmd/particle_list.dat
 cd ../
 
 # Save the final results into folder
-mkdir results
-mv fastjet_hadron/final_state_hard_hadrons.bin ./results/$ii.bin
+# mkdir results
+# mv fastjet_hadron/final_state_hard_hadrons.bin ./results/$ii.bin
 rm -r fastjet_hadron
 rm -r hadronization_urqmd 
 rm -r pythia_parton 
@@ -82,23 +82,24 @@ done
     with open(job_name, 'w') as fout:
         fout.write(jobs)
 
-    jobs='''#!/bin/bash
-#SBATCH --nodes=1
-#SBATCH --cpus-per-task=1
-#SBATCH --time=00:10:00
-#SBATCH --constraint=cpu
-#SBATCH --qos=regular
-#SBATCH --account=m3148
-#SBATCH --error=/pscratch/sd/w/wenbinz/V2inJet/log/%J.err
-#SBATCH --output=/pscratch/sd/w/wenbinz/V2inJet/log/%J.out
-#SBATCH --array=0-{nfold}
-chmod -R 777 {job_name}
-./{job_name} $SLURM_ARRAY_TASK_ID
-    '''.format(job_name = job_name, nfold = nfold)
+    condor_submit = '''# Condor 提交脚本
+universe        = vanilla
+executable      = {job_name}          # 指定任务执行脚本
+arguments       = $(Process)          # 通过$(Process)传递任务ID
+output          = logs/out_$(Process).log
+error           = logs/err_$(Process).log
+log             = logs/condor.log
+# should_transfer_files = YES
+# transfer_input_files = event0         # 传输依赖文件（如event0目录）
+# transfer_output_files = Playground    # 输出目录
++MaxRuntime =200000
+queue {nfold}                         # 提交nfold个任务
+    '''.format(job_name=job_name, nfold=nfold)
     job_name2 = "Submit_%s.sh"%(fold_id_start)
     with open(job_name2, 'w') as fout:
-        fout.write(jobs)
-    call(['sbatch', job_name2])
+        fout.write(condor_submit)
+    call(['mkdir', '-p', 'logs'])
+    call(['condor_submit', job_name2])
     #call(['mv', job_name, 'jobs/'])
     #call(['mv', job_name2, 'jobs/'])
 # comparing the grid size dependence of the hypersf cube

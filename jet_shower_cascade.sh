@@ -22,7 +22,7 @@ cd ../
 
 # Generate the pythia parton
 cd pythia_parton
-./mymain06 10 0
+./mymain06 10000 0
 cd ../
 
 # ZPC for parton cascade
@@ -35,7 +35,7 @@ cd ../
 cd hadronization_urqmd
 cd fragmentation
 ln -s ../../ZPC/ana/zpc.dat ./
-./main_string_fragmentation 100
+./main_string_fragmentation 10000
 
 cd ../urqmd_code
     # script to run urqmd
@@ -50,12 +50,12 @@ cd ../urqmd_code
 cd ../
 cd ../
 # jet finding of final hadrons
-cd fastjet_hadron
-ln -s ../hadronization_urqmd/urqmd_code/urqmd/particle_list.dat ./
-./fastjet_hadron 100
-cd ../
+# cd fastjet_hadron
+# ln -s ../hadronization_urqmd/urqmd_code/urqmd/particle_list.dat ./
+# ./fastjet_hadron 100
+# cd ../
 
 # Save the final results into folder
-mkdir results
-cp -r fastjet_hadron/jet_hardons ./results
+# mkdir results
+# cp -r fastjet_hadron/jet_hardons ./results
 
