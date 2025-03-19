@@ -12,9 +12,9 @@ mkdir Playground
 ((Randum_number=$RANDOM))
 
 ((Randum_number=$RANDOM))
-for (( ii=0; ii<1000; ii++ ))
+for (( ii=0; ii<10; ii++ ))
 do
-    ./grid_Submit.py $ii 20 20000
+    ./grid_Submit.py $ii 10 10
     #./testgrid_Submittest.py $ii 20 20000
     #sleep 10s
     #./grid_Submit_pythia_only.py $ii 600000
