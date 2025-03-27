@@ -1,23 +1,21 @@
 This is the framework to couple the jet parton shower and parton cascade
 
-## Install the LHAPDF ##
-version="6.5.4"
-echo "Building LHAPDF ${version} ... "
-tar -xf utilities/LHAPDF-${version}.tar.gz
-LIBPATH=`echo $PWD/LHAPDF_Lib`
-(
-    cd LHAPDF-${version}/
-    ./configure --prefix=`echo $LIBPATH` --disable-python
-    make -j${num_of_cores}
-    make install
-)
-rm -fr LHAPDF-${version}
+# Install LHAPDF
+1. **Download the LHAPDF Package**  
+   Download the LHAPDF compressed file
+2. mkdir /Tool/LHAPDF_Lib
+3. cd /path/to/extracted-LHAPDF-directory
+4. ./configure --prefix=/Tool/LHAPDF_Lib --disable-python
+5. make -j8
 
-echo "downloading pdfsets ... "
-wget http://lhapdfsets.web.cern.ch/lhapdfsets/current/NNPDF31_nnlo_as_0118.tar.gz -O- | tar xz -C $PWD/LHAPDF_Lib/share/LHAPDF
+# Install PDF Files
+1. wget http://lhapdfsets.web.cern.ch/lhapdfsets/current/NNPDF31_nnlo_as_0118.tar.gz
+2. tar -xzvf NNPDF31_nnlo_as_0018.tar.gz
+3. mv NNPDF31_nnlo_as_0018 /Tool/LHAPDF_Lib/share/LHAPDF/
 
-## Then compile pythia8 with LHAPDF ##
-./configure --prefix=/wsu/home/he/he92/he9215/soft_ware/Pythia8_package/pythia8310_install --with-lhapdf6=/wsu/home/he/he92/he9215/soft_ware/LHAPDF_package/LHAPDF_install
-
-Then please remember to copy the Makefile and Makefile.inc in the example folder to the pythia parton folder
-
+# Compile pythia8 with LHAPDF
+1. download pythia8.310
+2. After extracting Pythia, enter the resulting directory.
+3. ./configure --prefix=/Tool/pythia8310_install --with-lhapdf6=/Tool/LHAPDF_install
+4. make -j8
+5. make install
